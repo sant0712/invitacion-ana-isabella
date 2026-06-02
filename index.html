@@ -678,7 +678,7 @@
             <div class="gallery-crown-top">👑</div>
             <div class="gallery-frame">
                 <div class="gallery-slides" id="gallerySlides">
-                     <img src="imagen1.jpg" class="gallery-slide"><img src="imagen2.jpg" class="gallery-slide"><img src="imagen3.jpg" class="gallery-slide"><img src="imagen4.jpg" class="gallery-slide"><img src="imagen5.jpg" class="gallery-slide"><img src="imagen6.jpg" class="gallery-slide"><img src="imagen7.jpg" class="gallery-slide"><img src="imagen8.jpg" class="gallery-slide"><img src="imagen15.jpg" class="gallery-slide"><img src="imagen10.jpg" class="gallery-slide"><img src="imagen11.jpg" class="gallery-slide"><img src="imagen12.jpg" class="gallery-slide"><img src="imagen13.jpg" class="gallery-slide"><img src="imagen14.jpg" class="gallery-slide"><img src="imagen9.jpg" class="gallery-slide"><img src="imagen10.jpg" class="gallery-slide"><img src="imagen11.jpg" class="gallery-slide"><img src="imagen12.jpg" class="gallery-slide"><img src="imagen13.jpg" class="gallery-slide"><img src="imagen14.jpg" class="gallery-slide"><img src="imagen15.jpg" class="gallery-slide"><img src="imagen16.jpg" class="gallery-slide"><img src="imagen17.jpg" class="gallery-slide"><img src="imagen18.jpg" class="gallery-slide"><img src="imagen19.jpg" class="gallery-slide"><img src="imagen20.jpg" class="gallery-slide"><img src="imagen21.jpg" class="gallery-slide"><img src="imagen22.jpg" class="gallery-slide"><img src="imagen23.jpg" class="gallery-slide"><img src="imagen24.jpg" class="gallery-slide"><img src="imagen25.jpg" class="gallery-slide"><img src="imagen12_1.jpg" class="gallery-slide">
+                    <img src="imagen1.jpg" class="gallery-slide"><img src="imagen2.jpg" class="gallery-slide"><img src="imagen3.jpg" class="gallery-slide"><img src="imagen4.jpg" class="gallery-slide"><img src="imagen5.jpg" class="gallery-slide"><img src="imagen6.jpg" class="gallery-slide"><img src="imagen7.jpg" class="gallery-slide"><img src="imagen8.jpg" class="gallery-slide"><img src="imagen15.jpg" class="gallery-slide"><img src="imagen10.jpg" class="gallery-slide"><img src="imagen11.jpg" class="gallery-slide"><img src="imagen12.jpg" class="gallery-slide"><img src="imagen13.jpg" class="gallery-slide"><img src="imagen14.jpg" class="gallery-slide"><img src="imagen9.jpg" class="gallery-slide"><img src="imagen10.jpg" class="gallery-slide"><img src="imagen11.jpg" class="gallery-slide"><img src="imagen12.jpg" class="gallery-slide"><img src="imagen13.jpg" class="gallery-slide"><img src="imagen14.jpg" class="gallery-slide"><img src="imagen15.jpg" class="gallery-slide"><img src="imagen16.jpg" class="gallery-slide"><img src="imagen17.jpg" class="gallery-slide"><img src="imagen18.jpg" class="gallery-slide"><img src="imagen19.jpg" class="gallery-slide"><img src="imagen20.jpg" class="gallery-slide"><img src="imagen21.jpg" class="gallery-slide"><img src="imagen22.jpg" class="gallery-slide"><img src="imagen23.jpg" class="gallery-slide"><img src="imagen24.jpg" class="gallery-slide"><img src="imagen25.jpg" class="gallery-slide"><img src="imagen12_1.jpg" class="gallery-slide">
                 </div>
             </div>
             <div class="gallery-nav">
@@ -832,6 +832,42 @@
         slides.addEventListener('touchstart',(e)=>{touchStartX=e.changedTouches[0].screenX;stopAutoPlay();});
         slides.addEventListener('touchend',(e)=>{touchEndX=e.changedTouches[0].screenX;if(Math.abs(touchStartX-touchEndX)>50){touchStartX-touchEndX>0?nextSlide():prevSlide();}startAutoPlay();});
         startAutoPlay();
+                // ===== PERSONALIZAR INVITACIÓN POR URL =====
+        function obtenerParametroURL(nombre) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(nombre);
+        }
+        
+        const familiaURL = obtenerParametroURL('familia');
+        
+        if (familiaURL) {
+            const familiaDecodificada = decodeURIComponent(familiaURL);
+            
+            // Personalizar la portada
+            const portadaTitulo = document.querySelector('.section-cover .script-font');
+            if (portadaTitulo) {
+                portadaTitulo.textContent = 'Con mucha alegría invitamos a la Familia ' + familiaDecodificada;
+            }
+            
+            const portadaTexto = document.querySelector('.section-cover p.text-over-image');
+            if (portadaTexto) {
+                portadaTexto.innerHTML = 'Queremos compartir con ustedes un momento muy especial<br>en la vida de nuestra pequeña princesa.<br>Su presencia hará este día aún más mágico.';
+            }
+            
+            // Pre-llenar el formulario con los apellidos
+            const familiaInput = document.getElementById('familiaInput');
+            if (familiaInput) {
+                familiaInput.value = familiaDecodificada;
+                familiaInput.style.background = 'rgba(232, 197, 176, 0.3)';
+                familiaInput.style.borderColor = '#d4a88c';
+            }
+            
+            // Personalizar sección de padres
+            const padresTexto = document.querySelector('.section-love .text-over-image');
+            if (padresTexto && padresTexto.textContent.includes('Desean compartir')) {
+                padresTexto.innerHTML = 'Desean compartir este momento tan importante<br>con la <strong>Familia ' + familiaDecodificada + '</strong><br>y todas las personas que más queremos.';
+            }
+        }
 
         const confirmForm=document.getElementById('confirmForm'),formContainer=document.getElementById('formContainer'),confirmationResult=document.getElementById('confirmationResult'),TU_NUMERO_WHATSAPP="5638182240";
         confirmForm.addEventListener('submit',function(e){e.preventDefault();
