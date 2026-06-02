@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Presentación de 3 Años · Ana Isabella</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            color: #3a1a2b;
+            overflow-x: hidden;
+            background: #fef5f7;
+        }
+
+        .particles-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .particle {
+            position: absolute; border-radius: 50%;
+            animation: particleDrift 12s infinite ease-in-out; opacity: 0;
+        }
+        @keyframes particleDrift {
+            0% { transform: translate(0, 0) scale(0); opacity: 0; }
+            5% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.5); }
+            95% { opacity: 0.1; transform: scale(0.5); }
+            100% { transform: translate(60px, -400px) scale(0); opacity: 0; }
+        }
+
+        .music-toggle {
+            position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px;
+            background: rgba(255, 245, 250, 0.9); backdrop-filter: blur(10px);
+            border: 2px solid #e8c5b0; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; cursor: pointer;
+            box-shadow: 0 8px 25px rgba(180, 120, 140, 0.35); z-index: 1000;
+            transition: all 0.4s ease; font-size: 1.4rem; color: #c4908a;
+        }
+        .music-toggle:hover { transform: scale(1.1); }
+        .music-toggle.muted { opacity: 0.5; border-color: #d0c0c0; color: #b0a0a0; }
+
+        .royal-section {
+            position: relative; min-height: 100vh; width: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 4rem 1.5rem;
+            z-index: 1; color: #3a1a2b; overflow: hidden;
+        }
+
+        /* ===== EFECTO DISNEY ===== */
+        .disney-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #1a0a1e; z-index: 9999; pointer-events: all;
+            animation: disneyFadeOut 0.8s ease-in 4.2s forwards;
+        }
+        @keyframes disneyFadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; pointer-events: none; }
+        }
+        .disney-star {
+            position: fixed; z-index: 10000; pointer-events: none;
+            width: 10px; height: 10px; background: #ffd54f;
+            border-radius: 50%;
+            box-shadow: 0 0 25px 10px rgba(255,215,0,0.9), 0 0 55px 22px rgba(255,200,0,0.5);
+            top: 60%; left: -5%;
+            animation: disneyArc 3.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes disneyArc {
+            0% { top: 65%; left: -5%; transform: scale(0.5); }
+            20% { top: 20%; left: 15%; transform: scale(1.5); }
+            40% { top: 3%; left: 40%; transform: scale(2.2); }
+            60% { top: 2%; left: 60%; transform: scale(2.5); }
+            80% { top: 18%; left: 80%; transform: scale(1.6); }
+            95% { top: 50%; left: 92%; transform: scale(3); }
+            100% { top: 50%; left: 50%; transform: scale(14); opacity: 0; }
+        }
+        .disney-trail-line {
+            position: fixed; z-index: 9998; pointer-events: none;
+            height: 3px; width: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.7), rgba(255,200,0,0.4), transparent);
+            border-radius: 2px;
+            top: 60%; left: -5%;
+            animation: trailGrow 3.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes trailGrow {
+            0% { width: 0; opacity: 0; top: 65%; left: -5%; }
+            10% { opacity: 0.9; }
+            40% { width: 40%; top: 5%; left: 5%; opacity: 0.7; }
+            70% { width: 70%; top: 3%; left: 10%; opacity: 0.5; }
+            100% { width: 0; opacity: 0; top: 50%; left: 50%; }
+        }
+        .disney-spark {
+            position: fixed; z-index: 10001; pointer-events: none;
+            width: 4px; height: 4px; background: #ffd54f; border-radius: 50%;
+            opacity: 0;
+            animation: sparkBurst 1.2s ease-out 3.6s forwards;
+        }
+        @keyframes sparkBurst {
+            0% { transform: translate(0, 0) scale(0); opacity: 0; }
+            30% { opacity: 1; }
+            100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+        }
+
+        /* ===== CORONA MÁGICA CON DIAMANTES ===== */
+        .crown-princess {
+            position: relative; width: 220px; height: 220px; margin: 0 auto 1rem auto;
+            display: flex; align-items: center; justify-content: center;
+            animation: crownFloat 3s infinite ease-in-out;
+        }
+        .crown-princess .crown-glow {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 180px; height: 180px;
+            background: radial-gradient(circle, rgba(255,215,0,0.4) 0%, rgba(255,180,50,0.2) 30%, rgba(255,150,100,0.1) 50%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(25px);
+            animation: glowPulse 2.5s infinite alternate;
+            z-index: 0;
+        }
+        @keyframes glowPulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+        }
+        .crown-princess .crown-emoji {
+            font-size: 120px;
+            line-height: 1;
+            z-index: 2;
+            position: relative;
+            background: linear-gradient(135deg, #ffd700 0%, #ffb347 25%, #ff8c69 50%, #ffd700 75%, #ffb347 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 5px 15px rgba(200,150,0,0.6)) drop-shadow(0 0 30px rgba(255,200,50,0.4));
+            animation: crownShimmer 3s infinite linear;
+        }
+        @keyframes crownShimmer {
+            0% { filter: drop-shadow(0 5px 15px rgba(200,150,0,0.6)) drop-shadow(0 0 30px rgba(255,200,50,0.4)); }
+            50% { filter: drop-shadow(0 8px 25px rgba(220,170,20,0.8)) drop-shadow(0 0 50px rgba(255,220,80,0.7)) drop-shadow(0 0 80px rgba(255,180,40,0.3)); }
+            100% { filter: drop-shadow(0 5px 15px rgba(200,150,0,0.6)) drop-shadow(0 0 30px rgba(255,200,50,0.4)); }
+        }
+        @keyframes crownFloat {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0); }
+        }
+        .crown-princess .diamond {
+            position: absolute; z-index: 3;
+            width: 16px; height: 16px;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            animation: sparkle 1.8s infinite ease-in-out;
+        }
+        .crown-princess .diamond.gold {
+            background: radial-gradient(circle, #fff8dc 0%, #ffd700 40%, #b8860b 100%);
+            box-shadow: 0 0 12px rgba(255,215,0,0.8), 0 0 25px rgba(255,200,50,0.4);
+        }
+        .crown-princess .diamond.white {
+            background: radial-gradient(circle, #ffffff 0%, #e8e8ff 40%, #b0c0e0 100%);
+            box-shadow: 0 0 14px rgba(255,255,255,0.9), 0 0 28px rgba(200,220,255,0.5);
+        }
+        .crown-princess .diamond.small { width: 10px; height: 10px; }
+        .crown-princess .diamond.medium { width: 16px; height: 16px; }
+        .crown-princess .diamond.large { width: 22px; height: 22px; }
+        .crown-princess .diamond:nth-child(3) { top: -5px; left: 50px; }
+        .crown-princess .diamond:nth-child(4) { top: -15px; left: 50%; transform: translateX(-50%); }
+        .crown-princess .diamond:nth-child(5) { top: -5px; right: 50px; }
+        .crown-princess .diamond:nth-child(6) { top: 40px; left: -10px; }
+        .crown-princess .diamond:nth-child(7) { top: 40px; right: -10px; }
+        .crown-princess .diamond:nth-child(8) { top: 50%; left: -18px; transform: translateY(-50%); }
+        .crown-princess .diamond:nth-child(9) { top: 50%; right: -18px; transform: translateY(-50%); }
+        .crown-princess .diamond:nth-child(10) { bottom: 40px; left: 15px; }
+        .crown-princess .diamond:nth-child(11) { bottom: 30px; left: 50%; transform: translateX(-50%); }
+        .crown-princess .diamond:nth-child(12) { bottom: 40px; right: 15px; }
+        @keyframes sparkle {
+            0% { opacity: 0.4; transform: scale(0.6) rotate(0deg); }
+            25% { opacity: 1; transform: scale(1.3) rotate(45deg); }
+            50% { opacity: 0.5; transform: scale(0.8) rotate(90deg); }
+            75% { opacity: 1; transform: scale(1.2) rotate(135deg); }
+            100% { opacity: 0.4; transform: scale(0.6) rotate(180deg); }
+        }
+        .crown-princess .diamond:nth-child(3) { animation-delay: 0s; }
+        .crown-princess .diamond:nth-child(4) { animation-delay: 0.2s; }
+        .crown-princess .diamond:nth-child(5) { animation-delay: 0.4s; }
+        .crown-princess .diamond:nth-child(6) { animation-delay: 0.6s; }
+        .crown-princess .diamond:nth-child(7) { animation-delay: 0.8s; }
+        .crown-princess .diamond:nth-child(8) { animation-delay: 1s; }
+        .crown-princess .diamond:nth-child(9) { animation-delay: 1.2s; }
+        .crown-princess .diamond:nth-child(10) { animation-delay: 0.3s; }
+        .crown-princess .diamond:nth-child(11) { animation-delay: 0.5s; }
+        .crown-princess .diamond:nth-child(12) { animation-delay: 0.7s; }
+
+        /* ===== PUNTOS DORADOS FLOTANTES ===== */
+        .floating-gold {
+            position: absolute; z-index: 0; pointer-events: none;
+            width: 3px; height: 3px; background: #ffd54f;
+            border-radius: 50%;
+            box-shadow: 0 0 6px 2px rgba(255,200,50,0.7);
+            animation: floatUp 7s infinite ease-in-out;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            80% { opacity: 0.5; }
+            100% { transform: translateY(-350px) scale(0.4); opacity: 0; }
+        }
+
+        /* ===== PORTADA ===== */
+        .section-cover {
+            background: linear-gradient(180deg, #1a0a1e 0%, #2d1b2e 15%, #4a2545 30%, #6b3a5a 50%, #8b5a7a 70%, #c4908a 85%, #fef0f5 100%);
+        }
+        .section-cover .aurora {
+            position: absolute; top: 0; left: -20%; width: 140%; height: 60%;
+            background: radial-gradient(ellipse at 30% 20%, rgba(200,150,180,0.4) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 30%, rgba(180,200,220,0.35) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 10%, rgba(220,180,200,0.3) 0%, transparent 60%);
+            z-index: 0; pointer-events: none;
+            animation: auroraShift 8s infinite ease-in-out;
+        }
+        @keyframes auroraShift {
+            0%, 100% { transform: translateX(0) scaleY(1); }
+            50% { transform: translateX(3%) scaleY(1.15); }
+        }
+        .section-cover .stars-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 70%; z-index: 0; pointer-events: none; }
+        .section-cover .castle-silhouette {
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 700px; height: 45%; z-index: 0; pointer-events: none;
+        }
+        .section-cover .castle-silhouette::before {
+            content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, transparent 0%, rgba(30,10,25,0.6) 60%, rgba(20,5,15,0.85) 100%);
+            clip-path: polygon(0% 100%, 2% 70%, 6% 78%, 10% 55%, 15% 65%, 22% 38%, 27% 48%, 32% 20%, 36% 30%, 42% 12%, 47% 22%, 52% 15%, 57% 28%, 62% 18%, 68% 40%, 73% 30%, 78% 50%, 83% 40%, 88% 60%, 93% 50%, 97% 68%, 100% 60%, 100% 100%);
+        }
+        .castle-window {
+            position: absolute; bottom: 0; z-index: 0; pointer-events: none;
+            width: 8px; height: 12px; background: rgba(255,220,150,0.7);
+            border-radius: 2px;
+            box-shadow: 0 0 8px 2px rgba(255,200,100,0.5);
+            animation: windowGlow 3s infinite alternate;
+        }
+        @keyframes windowGlow { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        /* ===== PADRES ===== */
+        .section-love {
+            background: linear-gradient(180deg, #f5e0ec 0%, #fae8f2 20%, #fef0f6 40%, #fef5f7 60%, #fdf2f5 80%, #f5e8f0 100%);
+        }
+        .heart-css {
+            position: absolute; z-index: 0; pointer-events: none;
+            width: 20px; height: 20px;
+            animation: heartFall 10s infinite linear; opacity: 0.6;
+        }
+        .heart-css::before, .heart-css::after {
+            content: ""; position: absolute;
+            width: 10px; height: 16px; background: #e8b0c0;
+            border-radius: 10px 10px 0 0;
+        }
+        .heart-css::before { left: 10px; transform: rotate(-45deg); transform-origin: 0 100%; }
+        .heart-css::after { left: 0; transform: rotate(45deg); transform-origin: 100% 100%; }
+        @keyframes heartFall {
+            0% { transform: translateY(-120px) rotate(0deg) scale(1); opacity: 0; }
+            8% { opacity: 0.7; } 70% { opacity: 0.4; }
+            100% { transform: translateY(115vh) rotate(20deg) scale(0.5); opacity: 0; }
+        }
+        .pergola-column {
+            position: absolute; bottom: 0; width: 12px;
+            background: linear-gradient(180deg, rgba(200,170,150,0.5) 0%, rgba(180,150,130,0.6) 100%);
+            border-radius: 3px 3px 0 0; z-index: 0; pointer-events: none;
+        }
+        .pergola-column.left { left: 8%; height: 55%; }
+        .pergola-column.right { right: 8%; height: 55%; }
+        .rose-css {
+            position: absolute; z-index: 0; pointer-events: none;
+            width: 40px; height: 40px;
+            background: radial-gradient(circle at 30% 30%, #f8d0dc 0%, #e8a0b8 30%, #d08098 50%, transparent 55%),
+                        radial-gradient(circle at 60% 25%, #fad5e0 0%, #e8a8c0 35%, transparent 50%),
+                        radial-gradient(circle at 45% 55%, #f0c0d0 0%, #d890a8 40%, transparent 55%);
+            border-radius: 50%; box-shadow: 0 0 20px rgba(210,140,160,0.3);
+        }
+
+        /* ===== CEREMONIA ===== */
+        .section-ceremony {
+            background: linear-gradient(180deg, #f5ead8 0%, #faf0e0 20%, #fdf5e8 40%, #fef8f0 60%, #fef5f7 80%, #f8f0f5 100%);
+        }
+        .section-ceremony .church-left {
+            position: absolute; bottom: 0; left: 3%;
+            width: 35%; max-width: 250px; height: 55%; z-index: 0; pointer-events: none;
+        }
+        .section-ceremony .church-left::before {
+            content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, transparent 0%, rgba(160,140,120,0.25) 40%, rgba(140,120,100,0.4) 100%);
+            clip-path: polygon(
+                5% 100%, 5% 50%, 0% 50%, 15% 20%, 20% 40%, 25% 40%, 30% 18%, 35% 38%,
+                40% 38%, 45% 22%, 50% 35%, 55% 35%, 60% 15%, 65% 40%, 70% 40%, 75% 25%,
+                80% 45%, 85% 45%, 90% 30%, 100% 50%, 95% 50%, 95% 100%
+            );
+        }
+        .church-cross-center {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 6px; height: 100px; z-index: 0; pointer-events: none;
+            background: rgba(200,160,130,0.5);
+            box-shadow: 0 0 28px 10px rgba(255,240,200,0.5), 0 0 55px 18px rgba(255,220,180,0.3);
+            border-radius: 3px;
+        }
+        .church-cross-center::after {
+            content: ""; position: absolute; top: 22px; left: -24px;
+            width: 54px; height: 6px;
+            background: rgba(200,160,130,0.5);
+            box-shadow: 0 0 22px 10px rgba(255,240,200,0.4);
+            border-radius: 3px;
+        }
+        .section-ceremony .light-rays {
+            position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
+            width: 120%; height: 120%;
+            background: radial-gradient(ellipse at 50% 0%, rgba(255,240,200,0.5) 0%, transparent 45%),
+                        radial-gradient(ellipse at 40% 3%, rgba(255,235,180,0.3) 0%, transparent 40%),
+                        radial-gradient(ellipse at 60% 3%, rgba(255,235,180,0.3) 0%, transparent 40%);
+            z-index: 0; pointer-events: none;
+        }
+
+        /* ===== RECEPCIÓN ===== */
+        .section-reception {
+            background: linear-gradient(180deg, #fef0e0 0%, #fdf2e5 15%, #fef5ee 30%, #fef8f5 50%, #fdf0f5 70%, #fef5f7 85%, #fff3e0 100%);
+        }
+        .section-reception .chandelier-glow {
+            position: absolute; top: -5%; left: 50%; transform: translateX(-50%);
+            width: 50%; max-width: 350px; height: 30%;
+            background: radial-gradient(ellipse at 50% 100%, rgba(255,220,180,0.4) 0%, rgba(255,200,150,0.2) 30%, transparent 70%);
+            z-index: 0; pointer-events: none;
+        }
+        .section-reception .falling-zone { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
+        .balloon {
+            position: absolute; border-radius: 50%;
+            animation: balloonFall 10s infinite linear;
+            box-shadow: inset -4px -4px 12px rgba(0,0,0,0.08);
+        }
+        @keyframes balloonFall {
+            0% { transform: translateY(-120px) rotate(0deg) scale(1); opacity: 0; }
+            8% { opacity: 0.8; } 70% { opacity: 0.5; }
+            100% { transform: translateY(115vh) rotate(15deg) scale(0.6); opacity: 0; }
+        }
+        .golden-star-fall {
+            position: absolute; width: 0; height: 0; animation: starFall 8s infinite linear;
+        }
+        .golden-star-fall::before {
+            content: ""; position: absolute; top: -5px; left: -7px;
+            width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent;
+            border-bottom: 12px solid #ffd54f; filter: drop-shadow(0 0 3px rgba(255,200,50,0.5));
+        }
+        .golden-star-fall::after {
+            content: ""; position: absolute; top: -1px; left: -7px;
+            width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent;
+            border-top: 12px solid #ffd54f; filter: drop-shadow(0 0 3px rgba(255,200,50,0.5));
+        }
+        @keyframes starFall {
+            0% { transform: translateY(-100px) rotate(0deg) scale(0.5); opacity: 0; }
+            10% { opacity: 0.9; transform: scale(1); } 60% { opacity: 0.6; transform: rotate(180deg); }
+            100% { transform: translateY(115vh) rotate(360deg) scale(0.3); opacity: 0; }
+        }
+
+        /* ===== CONTADOR ===== */
+        .section-countdown-bg {
+            background: linear-gradient(180deg, #1a0a1e 0%, #3a1540 20%, #5a2560 45%, #7a4080 65%, #a06090 80%, #d090a8 95%, #fef5f7 100%);
+        }
+        .countdown-item-royal {
+            background: rgba(255, 245, 248, 0.9); backdrop-filter: blur(8px);
+            border: 2px solid #e8c5b0; border-radius: 20px; padding: 0.8rem 1.2rem;
+            min-width: 75px; box-shadow: 0 8px 25px rgba(180, 130, 150, 0.15);
+            animation: boxHeartbeat 1.5s infinite ease-in-out;
+        }
+        .countdown-item-royal:nth-child(1) { animation-delay: 0s; }
+        .countdown-item-royal:nth-child(2) { animation-delay: 0.2s; }
+        .countdown-item-royal:nth-child(3) { animation-delay: 0.4s; }
+        .countdown-item-royal:nth-child(4) { animation-delay: 0.6s; }
+        @keyframes boxHeartbeat {
+            0% { transform: scale(1); box-shadow: 0 8px 25px rgba(180, 130, 150, 0.15); }
+            12% { transform: scale(1.15); box-shadow: 0 14px 38px rgba(200, 140, 160, 0.45); }
+            24% { transform: scale(1); box-shadow: 0 8px 25px rgba(180, 130, 150, 0.15); }
+            36% { transform: scale(1.08); box-shadow: 0 10px 30px rgba(190, 135, 155, 0.28); }
+            100% { transform: scale(1); box-shadow: 0 8px 25px rgba(180, 130, 150, 0.15); }
+        }
+        .countdown-item-royal span {
+            display: block; font-size: 2rem; font-weight: 700; color: #6b2a3b;
+            animation: numberPulse 1.5s infinite ease-in-out;
+        }
+        @keyframes numberPulse {
+            0% { transform: scale(1); }
+            12% { transform: scale(1.3); color: #8b1a3b; }
+            24% { transform: scale(1); }
+            36% { transform: scale(1.12); }
+            100% { transform: scale(1); }
+        }
+
+        /* ===== CONFIRMACIÓN ===== */
+        .section-confirm {
+            background: linear-gradient(180deg, #2d1b2e 0%, #4a2545 15%, #6b3a5a 30%, #8b5a7a 50%, #b08090 70%, #d8b0b8 85%, #fef0f5 100%);
+        }
+        .section-confirm .shooting-star-zone { position: absolute; top: 0; left: 0; width: 100%; height: 60%; z-index: 0; pointer-events: none; }
+        .shooting-star-element {
+            position: absolute; width: 2px; height: 2px; background: #fff;
+            border-radius: 50%; box-shadow: 0 0 12px 3px rgba(255,220,150,0.8);
+            animation: shootAcross 5s infinite ease-in;
+        }
+        @keyframes shootAcross {
+            0% { transform: translate(0, 0) scale(0.3); opacity: 0; }
+            10% { opacity: 1; transform: scale(1.5); }
+            60% { transform: translate(350px, 200px) scale(0.8); opacity: 0.5; }
+            100% { transform: translate(600px, 350px) scale(0.2); opacity: 0; }
+        }
+
+        /* ===== ELEMENTOS COMUNES ===== */
+        .royal-section > * { position: relative; z-index: 2; }
+        .ornamental-frame {
+            position: relative; max-width: 600px; width: 95%; padding: 2.5rem 2rem;
+            background: rgba(255, 250, 252, 0.9); backdrop-filter: blur(15px);
+            border: 2px solid #e8c5b0; border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(180, 120, 140, 0.3); margin: 1rem 0;
+        }
+        .frame-photo-container {
+            position: relative; width: 160px; height: 160px; border-radius: 50%;
+            overflow: hidden; margin: 0 auto 0.5rem auto; border: 4px solid #e8c5b0;
+            box-shadow: 0 10px 30px rgba(180, 120, 140, 0.4), 0 0 0 8px rgba(255, 235, 240, 0.6);
+        }
+        .frame-photo { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        .script-font {
+            font-family: 'Great Vibes', 'Dancing Script', cursive;
+            font-weight: 400; color: #6b3a4b;
+            text-shadow: 0 0 20px rgba(255,255,255,0.95); letter-spacing: 1px;
+        }
+        .princess-name {
+            font-family: 'Dancing Script', 'Great Vibes', cursive;
+            font-size: 4rem; font-weight: 700; color: #b07060;
+            text-shadow: 0 0 30px rgba(255,255,255,1), 0 0 60px rgba(255,240,245,0.9);
+            margin: 0.8rem 0; line-height: 1.2;
+        }
+        .section-title {
+            font-family: 'Great Vibes', 'Dancing Script', cursive;
+            font-size: 2.8rem; font-weight: 400; color: #6b2a3b;
+            text-shadow: 0 0 25px rgba(255,255,255,1); margin-bottom: 1rem;
+        }
+        .royal-divider {
+            width: 120px; height: 2px;
+            background: linear-gradient(90deg, transparent, #d4a88c, #e8c5b0, #d4a88c, transparent);
+            margin: 1rem auto;
+        }
+        .event-detail-card {
+            background: rgba(255, 248, 250, 0.9); backdrop-filter: blur(15px);
+            border-radius: 25px; padding: 2rem; border: 1px solid #e8c5b0;
+            box-shadow: 0 15px 35px rgba(180, 130, 150, 0.2);
+            max-width: 500px; width: 90%; margin: 1rem 0;
+        }
+        .countdown-royal { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin: 1.5rem 0; }
+        .countdown-item-royal small { font-size: 0.75rem; color: #5a3e4b; text-transform: uppercase; letter-spacing: 2px; }
+        .royal-btn {
+            background: linear-gradient(135deg, #e8c5b0 0%, #d4a88c 100%);
+            border: none; border-radius: 50px; padding: 1rem 2.5rem; font-size: 1.1rem;
+            color: #fff; cursor: pointer; font-family: 'Playfair Display', serif;
+            letter-spacing: 1.5px; box-shadow: 0 8px 25px rgba(180, 120, 140, 0.4);
+            transition: all 0.4s ease; text-decoration: none; display: inline-block;
+            margin-top: 1rem; font-weight: 600;
+        }
+        .royal-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(180, 120, 140, 0.55); }
+        .royal-input, .royal-select {
+            padding: 1rem 1.2rem; border-radius: 30px; border: 2px solid #e8c5b0;
+            background: rgba(255, 255, 255, 0.9); font-family: 'Playfair Display', serif;
+            text-align: center; font-size: 1rem; color: #3a1a2b; width: 100%; transition: all 0.3s;
+        }
+        .royal-input:focus, .royal-select:focus {
+            outline: none; border-color: #d4a88c; box-shadow: 0 0 20px rgba(212, 168, 140, 0.3); background: #fff;
+        }
+        .royal-footer {
+            text-align: center; padding: 2rem; background: rgba(255, 240, 242, 0.95);
+            color: #5a3e4b; font-size: 0.9rem; letter-spacing: 1px;
+        }
+        .text-over-image {
+            text-shadow: 0 0 20px rgba(255,255,255,0.95), 0 0 40px rgba(255,255,255,0.8), 0 0 60px rgba(255,240,245,0.7);
+        }
+        .fade-in-section {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+        }
+        .fade-in-section.visible { opacity: 1; transform: translateY(0); }
+        .confirmation-result { display: none; max-width: 450px; width: 95%; margin: 0 auto; }
+        .confirmation-result.show { display: block; }
+
+        /* GALERÍA */
+        .gallery-section {
+            position: relative; min-height: auto; padding: 4rem 1.5rem;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 40%, #fef5f7 70%, #fff3e0 100%);
+            z-index: 1; overflow: hidden; text-align: center;
+        }
+        .gallery-container {
+            position: relative; max-width: 700px; width: 95%; margin: 0 auto;
+            background: rgba(255, 250, 252, 0.9); backdrop-filter: blur(15px);
+            border: 3px solid #e8c5b0; border-radius: 30px; padding: 1.5rem;
+            box-shadow: 0 0 0 8px rgba(255, 235, 240, 0.5), 0 0 0 16px rgba(212, 168, 140, 0.2), 0 25px 50px rgba(180, 120, 140, 0.3);
+        }
+        .gallery-frame {
+            position: relative; width: 100%; aspect-ratio: 4/3; overflow: hidden;
+            border-radius: 20px; border: 3px solid #d4a88c;
+            box-shadow: inset 0 0 30px rgba(212, 168, 140, 0.2); background: #fef5f7;
+        }
+        .gallery-slides { display: flex; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .gallery-slide { min-width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        .gallery-nav { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-top: 1.5rem; }
+        .gallery-btn {
+            width: 45px; height: 45px; border-radius: 50%; border: 2px solid #d4a88c;
+            background: rgba(255, 245, 248, 0.9); color: #b07060; font-size: 1.3rem;
+            cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 5px 15px rgba(180, 120, 140, 0.2);
+        }
+        .gallery-btn:hover { background: #d4a88c; color: white; transform: scale(1.1); }
+        .gallery-dots { display: flex; gap: 0.6rem; justify-content: center; margin-top: 1rem; }
+        .gallery-dot {
+            width: 12px; height: 12px; border-radius: 50%; background: #e8c5b0;
+            cursor: pointer; transition: all 0.3s; border: 2px solid #d4a88c;
+        }
+        .gallery-dot.active { background: #b07060; transform: scale(1.3); }
+        .gallery-crown-top {
+            position: absolute; top: -25px; left: 50%; transform: translateX(-50%);
+            font-size: 2.5rem; filter: drop-shadow(0 0 10px rgba(212, 168, 140, 0.6)); z-index: 2;
+        }
+
+        @media (max-width: 1024px) {
+            .princess-name { font-size: 3.5rem; } .section-title { font-size: 2.5rem; }
+            .royal-section { padding: 3rem 1.5rem; } .ornamental-frame { padding: 2rem 1.5rem; }
+            .gallery-container { max-width: 600px; } .frame-photo-container { width: 140px; height: 140px; }
+        }
+        @media (max-width: 600px) {
+            .princess-name { font-size: 2.8rem; } .section-title { font-size: 2.2rem; }
+            .royal-section { padding: 2.5rem 1rem; min-height: 100vh; }
+            .ornamental-frame { padding: 1.8rem 1.2rem; width: 98%; }
+            .event-detail-card { padding: 1.5rem; width: 95%; }
+            .countdown-item-royal { padding: 0.6rem 0.8rem; min-width: 65px; }
+            .countdown-item-royal span { font-size: 1.6rem; }
+            .royal-btn { padding: 0.8rem 2rem; font-size: 1rem; }
+            .royal-input, .royal-select { padding: 0.8rem 1rem; font-size: 0.9rem; }
+            .music-toggle { width: 45px; height: 45px; bottom: 20px; right: 20px; font-size: 1.2rem; }
+            form { max-width: 95% !important; }
+            .gallery-container { padding: 1rem; max-width: 95%; }
+            .gallery-btn { width: 38px; height: 38px; font-size: 1.1rem; }
+            .frame-photo-container { width: 120px; height: 120px; }
+            .crown-princess { width: 150px; height: 150px; }
+            .crown-princess .crown-emoji { font-size: 80px; }
+            .crown-princess .crown-glow { width: 120px; height: 120px; }
+            .crown-princess .diamond.large { width: 16px; height: 16px; }
+            .crown-princess .diamond.medium { width: 12px; height: 12px; }
+            .crown-princess .diamond.small { width: 8px; height: 8px; }
+        }
+        @media (max-width: 380px) {
+            .princess-name { font-size: 2.2rem; } .section-title { font-size: 1.8rem; }
+            .countdown-item-royal { padding: 0.5rem 0.6rem; min-width: 55px; }
+            .countdown-item-royal span { font-size: 1.3rem; }
+            .frame-photo-container { width: 100px; height: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- EFECTO DISNEY -->
+    <div class="disney-overlay" id="disneyOverlay"></div>
+    <div class="disney-trail-line" id="disneyTrailLine"></div>
+    <div class="disney-star" id="disneyStar"></div>
+    <div id="disneySparks"></div>
+
+    <div class="particles-container" id="particlesContainer"></div>
+
+    <audio id="bgMusic" loop preload="auto">
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-toggle" id="musicToggle" title="Música">&#9835;</div>
+
+    <!-- SECCIÓN 1: PORTADA -->
+    <div class="royal-section section-cover" id="coverSection">
+        <div class="aurora"></div>
+        <div class="stars-canvas" id="starsCanvas1"></div>
+        <div class="castle-silhouette" id="castleSilhouette"></div>
+        <div id="floatingGoldContainer" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></div>
+        
+        <div class="fade-in-section" style="animation-delay:4.4s;">
+            <div class="crown-princess">
+                <div class="crown-glow"></div>
+                <span class="crown-emoji">👑</span>
+                <div class="diamond gold small"></div>
+                <div class="diamond white large"></div>
+                <div class="diamond gold small"></div>
+                <div class="diamond white medium"></div>
+                <div class="diamond gold medium"></div>
+                <div class="diamond white small"></div>
+                <div class="diamond gold small"></div>
+                <div class="diamond white medium"></div>
+                <div class="diamond gold small"></div>
+                <div class="diamond white medium"></div>
+            </div>
+        </div>
+        <h3 class="script-font text-over-image fade-in-section" style="font-size:1.6rem;margin-bottom:0.3rem;color:#fff;text-shadow:0 0 30px rgba(0,0,0,0.5);animation-delay:4.6s;">Con mucha alegría y amor en nuestro corazón</h3>
+        <div class="royal-divider fade-in-section" style="background:linear-gradient(90deg,transparent,rgba(255,255,255,0.6),rgba(255,255,255,0.6),transparent);animation-delay:4.7s;"></div>
+        <p class="text-over-image fade-in-section" style="font-size:1.1rem;max-width:500px;line-height:1.8;color:#fff;text-shadow:0 0 25px rgba(0,0,0,0.4);animation-delay:4.8s;">
+            Hace tres años llegó a nuestras vidas<br>para llenarlas de luz, risas y amor infinito.<br>Hoy queremos agradecer a Dios por cada día<br>que nos ha permitido verla crecer.
+        </p>
+        <h1 class="princess-name fade-in-section" style="color:#ffd5c0;text-shadow:0 0 40px rgba(0,0,0,0.4),0 0 80px rgba(255,200,150,0.5);animation-delay:4.9s;">Ana Isabella</h1>
+        <p class="text-over-image fade-in-section" style="font-size:1.3rem;font-style:italic;color:#ffe0d0;text-shadow:0 0 25px rgba(0,0,0,0.4);animation-delay:5s;">Presentación de 3 Años</p>
+    </div>
+
+    <!-- SECCIÓN 2: PADRES -->
+    <div class="royal-section section-love">
+        <div style="position:absolute;top:0;left:0;width:100%;height:45%;z-index:0;pointer-events:none;">
+            <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:85%;max-width:550px;height:100%;border:3px solid rgba(200,170,150,0.3);border-top:none;border-radius:0 0 280px 280px;box-shadow:inset 0 -25px 50px rgba(200,170,150,0.12);"></div>
+            <div class="pergola-column left"></div><div class="pergola-column right"></div>
+        </div>
+        <div id="heartsContainer" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden;"></div>
+        <div class="rose-css" style="top:12%;left:10%;"></div><div class="rose-css" style="top:18%;right:12%;transform:scale(0.8);"></div>
+        <div class="rose-css" style="bottom:20%;left:8%;transform:scale(1.1);"></div><div class="rose-css" style="bottom:15%;right:10%;transform:scale(0.7);"></div>
+        <div class="rose-css" style="top:8%;left:25%;transform:scale(0.6);"></div><div class="rose-css" style="top:22%;right:28%;transform:scale(0.9);"></div>
+        <div class="ornamental-frame fade-in-section">
+            <div class="frame-photo-container"><img src="padresypadrinos.jpg" alt="Padres y Padrinos" class="frame-photo"></div>
+            <h2 class="section-title" style="margin-top:1rem;">Con amor y orgullo</h2>
+            <p style="font-size:1.1rem;color:#3a1a2b;font-weight:500;letter-spacing:1.5px;line-height:2;">Sus padres<br><strong style="font-size:1.3rem;">Santiago Ramírez</strong><br><span style="font-size:0.9rem;">&</span><br><strong style="font-size:1.3rem;">Ana González</strong></p>
+            <div class="royal-divider"></div>
+            <p class="text-over-image" style="font-size:0.95rem;line-height:1.7;margin:1rem 0;">Desean compartir este momento tan importante<br>rodeados de las personas que más queremos.</p>
+            <p class="text-over-image" style="font-size:0.9rem;margin-top:1rem;">Agradecemos también el cariño<br>de sus queridos padrinos</p>
+            <p style="font-size:1rem;color:#3a1a2b;font-style:italic;margin-top:0.8rem;"><strong>Daniela Sánchez</strong><br><span style="font-size:0.8rem;">&</span><br><strong>Roberto González</strong></p>
+            <p class="text-over-image" style="font-size:0.85rem;margin-top:0.8rem;font-style:italic;">Quienes acompañarán a Ana Isabella<br>en este día tan significativo</p>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 3: CEREMONIA -->
+    <div class="royal-section section-ceremony">
+        <div class="light-rays"></div>
+        <div class="church-left"></div>
+        <div class="church-cross-center"></div>
+        <div class="event-detail-card fade-in-section">
+            <h2 class="section-title" style="font-size:2.2rem;">Ceremonia de Agradecimiento</h2>
+            <p style="font-style:italic;">Primero daremos gracias a Dios<br>por estos hermosos tres años de vida.</p>
+            <div class="royal-divider"></div>
+            <p><strong>05:00 p.m.</strong></p><p><strong>Santuario de la Quinta Aparición Guadalupana</strong></p>
+            <p style="font-size:0.9rem;font-style:italic;margin-top:0.8rem;">Será un momento lleno de fe, amor<br>y bendiciones para nuestra pequeña princesa</p>
+            <a href="https://maps.app.goo.gl/HoXt5fuK5zwY6uKS6" target="_blank" class="royal-btn" style="margin-top:1.2rem;text-decoration:none;display:inline-flex;align-items:center;gap:8px;">
+                <span style="font-size:1.3rem;">&#9906;</span> Ver ubicación de la Iglesia
+            </a>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 4: RECEPCIÓN -->
+    <div class="royal-section section-reception">
+        <div class="chandelier-glow"></div>
+        <div class="falling-zone" id="fallingZone"></div>
+        <div class="event-detail-card fade-in-section">
+            <h2 class="section-title" style="font-size:2.2rem;">Recepción</h2>
+            <p style="font-style:italic;">Después de la ceremonia<br>nos encantaría celebrar juntos este día tan especial.</p>
+            <div class="royal-divider"></div>
+            <p><strong>06:00 p.m.</strong></p><p><strong>Salón Tulipanes</strong></p>
+            <p style="font-size:0.9rem;margin-top:0.8rem;">Tu presencia será el regalo más hermoso<br>para nuestra familia<br>y para nuestra pequeña Ana Isabella.</p>
+            <p style="font-size:1.3rem;margin-top:1rem;">¡Te esperamos para celebrar juntos!</p>
+            <a href="https://maps.app.goo.gl/g8mbD1qhkS8XKSVo9" target="_blank" class="royal-btn" style="margin-top:1.2rem;text-decoration:none;display:inline-flex;align-items:center;gap:8px;">
+                <span style="font-size:1.3rem;">&#9906;</span> Ver ubicación del Salón
+            </a>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 5: CONTADOR -->
+    <div class="royal-section section-countdown-bg" style="min-height:auto;padding:4rem 1.5rem;">
+        <h2 class="section-title fade-in-section" style="font-size:2rem;color:#fff;text-shadow:0 0 30px rgba(0,0,0,0.4);">Faltan para el gran día...</h2>
+        <div class="countdown-royal fade-in-section" id="countdownContainer">
+            <div class="countdown-item-royal"><span id="days">00</span><small>Días</small></div>
+            <div class="countdown-item-royal"><span id="hours">00</span><small>Horas</small></div>
+            <div class="countdown-item-royal"><span id="minutes">00</span><small>Minutos</small></div>
+            <div class="countdown-item-royal"><span id="seconds">00</span><small>Segundos</small></div>
+        </div>
+        <p class="text-over-image fade-in-section" style="font-style:italic;margin-top:1rem;color:#ffe0d0;">¡Qué emoción!</p>
+    </div>
+
+    <!-- SECCIÓN 6: GALERÍA -->
+    <div class="gallery-section">
+        <h2 class="section-title fade-in-section" style="margin-bottom:2rem;">Nuestra Princesa</h2>
+        <div class="gallery-container fade-in-section">
+            <div class="gallery-crown-top">👑</div>
+            <div class="gallery-frame">
+                <div class="gallery-slides" id="gallerySlides">
+                    <img src="imagen1.jpg" class="gallery-slide"><img src="imagen2.jpg" class="gallery-slide"><img src="imagen3.jpg" class="gallery-slide"><img src="imagen4.jpg" class="gallery-slide"><img src="imagen5.jpg" class="gallery-slide"><img src="imagen6.jpg" class="gallery-slide"><img src="imagen7.jpg" class="gallery-slide"><img src="imagen8.jpg" class="gallery-slide"><img src="imagen15.jpg" class="gallery-slide"><img src="imagen10.jpg" class="gallery-slide"><img src="imagen11.jpg" class="gallery-slide"><img src="imagen12.jpg" class="gallery-slide"><img src="imagen13.jpg" class="gallery-slide"><img src="imagen14.jpg" class="gallery-slide"><img src="imagen9.jpg" class="gallery-slide">
+                </div>
+            </div>
+            <div class="gallery-nav">
+                <button class="gallery-btn" id="prevBtn">&#9664;</button>
+                <button class="gallery-btn" id="nextBtn">&#9654;</button>
+            </div>
+            <div class="gallery-dots" id="galleryDots"></div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 7: CONFIRMACIÓN -->
+    <div class="royal-section section-confirm">
+        <div class="shooting-star-zone" id="shootingStarZone"></div>
+        <h2 class="section-title fade-in-section" style="color:#fff;text-shadow:0 0 30px rgba(0,0,0,0.5);">Confirma tu asistencia</h2>
+        <div id="formContainer" class="fade-in-section">
+            <p class="text-over-image" style="margin-bottom:1.5rem;font-size:1.05rem;color:#ffe0d0;">¿Nos acompañarás en este día tan especial?</p>
+            <form id="confirmForm" style="display:flex;flex-direction:column;gap:0.8rem;max-width:380px;width:95%;margin:0 auto;">
+                <input type="text" id="familiaInput" placeholder="Escribe los apellidos de tu familia" required class="royal-input">
+                <select id="cantidadSelect" required class="royal-select">
+                    <option value="">¿Cuántos asistirán?</option>
+                    <option value="1">1 persona</option><option value="2">2 personas</option><option value="3">3 personas</option><option value="4">4 personas</option><option value="5">5 personas</option><option value="6">6 personas</option>
+                </select>
+                <select id="asistenciaSelect" required class="royal-select">
+                    <option value="">¿Nos acompañarás?</option>
+                    <option value="si">¡Claro que sí! Allí estaremos</option>
+                    <option value="no">No podremos, pero enviamos bendiciones</option>
+                </select>
+                <button type="submit" class="royal-btn">Enviar confirmación</button>
+            </form>
+            <p class="text-over-image" style="font-size:0.8rem;margin-top:0.8rem;color:#ffe0d0;">Al confirmar recibirás un código QR con tu acceso</p>
+        </div>
+        <div id="confirmationResult" class="confirmation-result fade-in-section"></div>
+    </div>
+
+    <div class="royal-footer"><p>Con amor y gratitud · Ana Isabella · 3 Años</p></div>
+
+    <script>
+        // EFECTO DISNEY
+        function createDisneySparks() {
+            const container = document.getElementById('disneySparks');
+            for (let i = 0; i < 50; i++) {
+                const spark = document.createElement('div'); spark.classList.add('disney-spark');
+                const angle = Math.random() * Math.PI * 2, distance = Math.random() * 250 + 120;
+                spark.style.setProperty('--dx', Math.cos(angle) * distance + 'px');
+                spark.style.setProperty('--dy', Math.sin(angle) * distance + 'px');
+                spark.style.top = '50%'; spark.style.left = '50%';
+                spark.style.animationDelay = (Math.random() * 0.4) + 's';
+                container.appendChild(spark);
+            }
+            setTimeout(() => {
+                const overlay = document.getElementById('disneyOverlay'), star = document.getElementById('disneyStar'), trail = document.getElementById('disneyTrailLine');
+                if(overlay) overlay.remove(); if(star) star.remove(); if(trail) trail.remove();
+                container.innerHTML = '';
+            }, 5000);
+        }
+        createDisneySparks();
+
+        function createParticles() {
+            const c = document.getElementById('particlesContainer');
+            for (let i = 0; i < 60; i++) {
+                const p = document.createElement('div'); p.classList.add('particle');
+                p.style.left = Math.random() * 100 + '%'; p.style.top = Math.random() * 100 + '%';
+                p.style.width = (Math.random() * 3 + 1) + 'px'; p.style.height = p.style.width;
+                p.style.background = `rgba(${255},${200 + Math.floor(Math.random()*55)},${150 + Math.floor(Math.random()*105)},${Math.random()*0.5+0.2})`;
+                p.style.animationDelay = Math.random() * 12 + 's';
+                p.style.animationDuration = (Math.random() * 12 + 8) + 's';
+                c.appendChild(p);
+            }
+        }
+        createParticles();
+
+        function createFloatingGold() {
+            const c = document.getElementById('floatingGoldContainer'); if(!c) return;
+            for (let i = 0; i < 35; i++) {
+                const d = document.createElement('div'); d.classList.add('floating-gold');
+                d.style.left = Math.random() * 95 + '%'; d.style.top = (Math.random() * 80 + 20) + '%';
+                d.style.animationDelay = Math.random() * 7 + 's'; d.style.animationDuration = (Math.random() * 7 + 5) + 's';
+                d.style.width = (Math.random() * 4 + 2) + 'px'; d.style.height = d.style.width;
+                c.appendChild(d);
+            }
+        }
+        createFloatingGold();
+
+        function createStarField(id) {
+            const c = document.getElementById(id); if(!c) return;
+            for (let i = 0; i < 80; i++) {
+                const s = document.createElement('div');
+                s.style.cssText = `position:absolute;width:${Math.random()*3+1}px;height:${Math.random()*3+1}px;left:${Math.random()*100}%;top:${Math.random()*100}%;background:#fff;border-radius:50%;box-shadow:0 0 ${Math.random()*6+2}px ${Math.random()*2+1}px rgba(255,255,220,0.8);animation:windowGlow ${Math.random()*4+2}s infinite alternate;animation-delay:${Math.random()*3}s;opacity:${Math.random()*0.5+0.3};`;
+                c.appendChild(s);
+            }
+        }
+        createStarField('starsCanvas1');
+
+        function createCastleWindows() {
+            const castle = document.getElementById('castleSilhouette'); if(!castle) return;
+            [{l:'18%',b:'32%'},{l:'22%',b:'28%'},{l:'26%',b:'36%'},{l:'38%',b:'42%'},{l:'42%',b:'38%'},{l:'46%',b:'46%'},{l:'58%',b:'35%'},{l:'62%',b:'42%'},{l:'68%',b:'30%'},{l:'78%',b:'38%'},{l:'82%',b:'45%'},{l:'88%',b:'33%'}].forEach(p => {
+                const w = document.createElement('div'); w.classList.add('castle-window');
+                w.style.left = p.l; w.style.bottom = p.b; w.style.animationDelay = Math.random()*3+'s';
+                castle.appendChild(w);
+            });
+        }
+        createCastleWindows();
+
+        function createHearts() {
+            const c = document.getElementById('heartsContainer'); if(!c) return;
+            for (let i = 0; i < 20; i++) {
+                const h = document.createElement('div'); h.classList.add('heart-css');
+                h.style.left = Math.random()*90+'%'; h.style.top = -(Math.random()*100)+'px';
+                h.style.animationDelay = Math.random()*10+'s'; h.style.animationDuration = (Math.random()*10+8)+'s';
+                h.style.transform = `scale(${Math.random()*0.8+0.4})`; c.appendChild(h);
+            }
+        }
+        createHearts();
+
+        function createFalling() {
+            const z = document.getElementById('fallingZone'); if(!z) return;
+            const bc = ['#f8d0dc','#e8c5b0','#f9e4c5','#d4a88c','#fce4ec','#f0c0d0','#e0c8d0','#f5d5c8','#ffd5c0','#c8d0e0'];
+            for(let i=0;i<20;i++){const b=document.createElement('div');b.classList.add('balloon');b.style.left=Math.random()*95+'%';b.style.top=-(Math.random()*100)+'px';b.style.width=(Math.random()*30+20)+'px';b.style.height=(Math.random()*35+25)+'px';b.style.background=bc[Math.floor(Math.random()*bc.length)];b.style.animationDelay=Math.random()*10+'s';b.style.animationDuration=(Math.random()*10+8)+'s';z.appendChild(b);}
+            for(let i=0;i<15;i++){const s=document.createElement('div');s.classList.add('golden-star-fall');s.style.left=Math.random()*95+'%';s.style.top=-(Math.random()*80)+'px';s.style.animationDelay=Math.random()*8+'s';s.style.animationDuration=(Math.random()*8+6)+'s';s.style.transform=`scale(${Math.random()*0.8+0.4})`;z.appendChild(s);}
+        }
+        createFalling();
+
+        function createShootingStars() {
+            const z = document.getElementById('shootingStarZone'); if(!z) return;
+            for(let i=0;i<6;i++){const s=document.createElement('div');s.classList.add('shooting-star-element');s.style.left=Math.random()*60+'%';s.style.top=Math.random()*30+'%';s.style.animationDelay=Math.random()*5+'s';s.style.animationDuration=(Math.random()*5+4)+'s';z.appendChild(s);}
+        }
+        createShootingStars();
+
+        const bgMusic=document.getElementById('bgMusic'),musicToggle=document.getElementById('musicToggle');let isPlaying=false;
+        document.body.addEventListener('click',function initAudio(){if(!isPlaying){bgMusic.play().then(()=>{isPlaying=true;musicToggle.classList.remove('muted');}).catch(()=>{});}},{once:true});
+        musicToggle.addEventListener('click',(e)=>{e.stopPropagation();if(isPlaying){bgMusic.pause();isPlaying=false;musicToggle.classList.add('muted');}else{bgMusic.play().then(()=>{isPlaying=true;musicToggle.classList.remove('muted');}).catch(()=>{});}});
+
+        const targetDate=new Date("August 01, 2026 18:00:00").getTime();
+        function updateCountdown(){const n=new Date().getTime(),d=targetDate-n;if(d<0){document.getElementById('countdownContainer').innerHTML="<p style='font-size:2rem;color:#fff;'>¡Hoy es el gran día!</p>";return;}document.getElementById('days').textContent=Math.floor(d/(1000*60*60*24)).toString().padStart(2,'0');document.getElementById('hours').textContent=Math.floor((d%(1000*60*60*24))/(1000*60*60)).toString().padStart(2,'0');document.getElementById('minutes').textContent=Math.floor((d%(1000*60*60))/(1000*60)).toString().padStart(2,'0');document.getElementById('seconds').textContent=Math.floor((d%(1000*60))/1000).toString().padStart(2,'0');}
+        setInterval(updateCountdown,1000);updateCountdown();
+
+        const fadeElements=document.querySelectorAll('.fade-in-section');
+        const textObserver=new IntersectionObserver((e)=>{e.forEach(en=>{if(en.isIntersecting){setTimeout(()=>en.target.classList.add('visible'),150);textObserver.unobserve(en.target);}});},{threshold:0.15});
+        fadeElements.forEach(el=>textObserver.observe(el));
+
+        const slides=document.getElementById('gallerySlides'),galleryDotsContainer=document.getElementById('galleryDots'),slideImages=slides.querySelectorAll('.gallery-slide'),totalSlides=slideImages.length;
+        let currentSlide=0,autoPlayInterval;
+        for(let i=0;i<totalSlides;i++){const dot=document.createElement('span');dot.classList.add('gallery-dot');dot.dataset.index=i;if(i===0)dot.classList.add('active');dot.addEventListener('click',()=>{goToSlide(i);startAutoPlay();});galleryDotsContainer.appendChild(dot);}
+        const dots=document.querySelectorAll('.gallery-dot');
+        function goToSlide(i){if(i<0)i=totalSlides-1;if(i>=totalSlides)i=0;currentSlide=i;slides.style.transform=`translateX(-${currentSlide*100}%)`;dots.forEach((d,j)=>d.classList.toggle('active',j===currentSlide));}
+        function nextSlide(){goToSlide(currentSlide+1);}function prevSlide(){goToSlide(currentSlide-1);}
+        function startAutoPlay(){stopAutoPlay();autoPlayInterval=setInterval(nextSlide,3500);}function stopAutoPlay(){clearInterval(autoPlayInterval);}
+        document.getElementById('nextBtn').addEventListener('click',()=>{nextSlide();startAutoPlay();});
+        document.getElementById('prevBtn').addEventListener('click',()=>{prevSlide();startAutoPlay();});
+        let touchStartX=0,touchEndX=0;
+        slides.addEventListener('touchstart',(e)=>{touchStartX=e.changedTouches[0].screenX;stopAutoPlay();});
+        slides.addEventListener('touchend',(e)=>{touchEndX=e.changedTouches[0].screenX;if(Math.abs(touchStartX-touchEndX)>50){touchStartX-touchEndX>0?nextSlide():prevSlide();}startAutoPlay();});
+        startAutoPlay();
+
+        const confirmForm=document.getElementById('confirmForm'),formContainer=document.getElementById('formContainer'),confirmationResult=document.getElementById('confirmationResult'),TU_NUMERO_WHATSAPP="5638182240";
+        confirmForm.addEventListener('submit',function(e){e.preventDefault();
+            const familia=document.getElementById('familiaInput').value.trim(),cantidad=document.getElementById('cantidadSelect').value,asistencia=document.getElementById('asistenciaSelect').value;
+            if(!familia||!cantidad||!asistencia){alert('Completa todos los campos');return;}
+            const codigo='ANA'+Math.random().toString(36).substring(2,8).toUpperCase();let mensaje='';
+            if(asistencia==='si'){mensaje='*ASISTENCIA CONFIRMADA*\n\nEvento: Ana Isabella - 3 Años\nFamilia: '+familia+'\nInvitados: '+cantidad+' persona(s)\nCódigo: '+codigo+'\n\nCeremonia: Santuario Quinta Aparición - 5:00 PM\nRecepción: Salón Tulipanes - 6:00 PM\n\n¡Los esperamos! Santiago Ramirez & Ana González';}
+            else{mensaje='*MENSAJE RECIBIDO*\n\nEvento: Ana Isabella - 3 Años\nFamilia: '+familia+'\nCódigo: '+codigo+'\n\nAgradecemos su amor y bendiciones.';}
+            const urlW='https://wa.me/'+TU_NUMERO_WHATSAPP+'?text='+encodeURIComponent(mensaje),qrUrl='https://api.qrserver.com/v1/create-qr-code/?size=180x180&data='+encodeURIComponent(urlW)+'&bgcolor=fef5f7&color=c4908a';
+            formContainer.style.display='none';confirmationResult.classList.add('show');
+            window.open(urlW, '_blank');
+            if(asistencia==='si'){confirmationResult.innerHTML='<div style="font-size:2.5rem;margin-bottom:0.5rem;color:#fff;">&#127881;</div><p class="text-over-image" style="font-size:1.4rem;font-weight:600;color:#ffe0d0;">¡Confirmación Exitosa!</p><p class="text-over-image" style="font-size:1.1rem;line-height:1.8;color:#ffe0d0;"><strong>Familia:</strong> '+familia+'<br><strong>Invitados:</strong> '+cantidad+' persona(s)<br><strong>Código:</strong> '+codigo+'</p><div style="margin-top:1.5rem;"><a href="'+urlW+'" target="_blank"><img src="'+qrUrl+'" alt="QR" style="width:170px;height:170px;border:3px solid #e8c5b0;border-radius:15px;"></a><p class="text-over-image" style="font-size:0.8rem;color:#ffe0d0;">Escanea para abrir WhatsApp</p></div><div style="margin-top:1rem;"><span style="background:#e8c5b0;color:#fff;padding:0.5rem 1.8rem;border-radius:25px;font-weight:600;">'+codigo+'</span></div>';}
+            else{confirmationResult.innerHTML='<div style="font-size:2.5rem;color:#fff;">&#128150;</div><p class="text-over-image" style="font-size:1.4rem;color:#ffe0d0;">Gracias, Familia '+familia+'</p><p class="text-over-image" style="font-size:1.1rem;color:#ffe0d0;">Agradecemos su hermoso mensaje.</p><p class="text-over-image" style="color:#ffe0d0;">Código: <strong>'+codigo+'</strong></p>';}
+            confirmationResult.scrollIntoView({behavior:'smooth',block:'center'});
+        });
+    </script>
+</body>
+</html>
