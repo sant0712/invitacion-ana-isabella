@@ -832,32 +832,58 @@
         slides.addEventListener('touchstart',(e)=>{touchStartX=e.changedTouches[0].screenX;stopAutoPlay();});
         slides.addEventListener('touchend',(e)=>{touchEndX=e.changedTouches[0].screenX;if(Math.abs(touchStartX-touchEndX)>50){touchStartX-touchEndX>0?nextSlide():prevSlide();}startAutoPlay();});
         startAutoPlay();
-                // ===== PERSONALIZAR INVITACIÓN POR URL =====
+                        // ===== PERSONALIZAR INVITACIÓN POR URL =====
         function obtenerParametroURL(nombre) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(nombre);
         }
         
         const familiaURL = obtenerParametroURL('familia');
+        const amigoURL = obtenerParametroURL('amigo');
+        const amigaURL = obtenerParametroURL('amiga');
+        
+        let nombreInvitado = '';
+        let tipoInvitado = '';
         
         if (familiaURL) {
-            const familiaDecodificada = decodeURIComponent(familiaURL);
-            
+            nombreInvitado = decodeURIComponent(familiaURL);
+            tipoInvitado = 'Familia';
+        } else if (amigoURL) {
+            nombreInvitado = decodeURIComponent(amigoURL);
+            tipoInvitado = 'Amigo';
+        } else if (amigaURL) {
+            nombreInvitado = decodeURIComponent(amigaURL);
+            tipoInvitado = 'Amiga';
+        }
+        
+        if (nombreInvitado) {
             // Personalizar la portada
             const portadaTitulo = document.querySelector('.section-cover .script-font');
             if (portadaTitulo) {
-                portadaTitulo.textContent = 'Con mucha alegría invitamos a la Familia ' + familiaDecodificada;
+                if (tipoInvitado === 'Familia') {
+                    portadaTitulo.textContent = 'Con mucha alegría invitamos a la Familia ' + nombreInvitado;
+                } else if (tipoInvitado === 'Amigo') {
+                    portadaTitulo.textContent = 'Con mucha alegría invitamos a nuestro Amigo ' + nombreInvitado;
+                } else if (tipoInvitado === 'Amiga') {
+                    portadaTitulo.textContent = 'Con mucha alegría invitamos a nuestra Amiga ' + nombreInvitado;
+                }
             }
             
             const portadaTexto = document.querySelector('.section-cover p.text-over-image');
             if (portadaTexto) {
-                portadaTexto.innerHTML = 'Queremos compartir con ustedes un momento muy especial<br>en la vida de nuestra pequeña princesa.<br>Su presencia hará este día aún más mágico.';
+                if (tipoInvitado === 'Familia') {
+                    portadaTexto.innerHTML = 'Queremos compartir con ustedes un momento muy especial<br>en la vida de nuestra pequeña princesa.<br>Su presencia hará este día aún más mágico.';
+                } else if (tipoInvitado === 'Amigo') {
+                    portadaTexto.innerHTML = 'Queremos compartir contigo un momento muy especial<br>en la vida de nuestra pequeña princesa.<br>Tu presencia hará este día aún más mágico.';
+                } else if (tipoInvitado === 'Amiga') {
+                    portadaTexto.innerHTML = 'Queremos compartir contigo un momento muy especial<br>en la vida de nuestra pequeña princesa.<br>Tu presencia hará este día aún más mágico.';
+                }
             }
             
-            // Pre-llenar el formulario con los apellidos
+            // Pre-llenar el formulario
             const familiaInput = document.getElementById('familiaInput');
             if (familiaInput) {
-                familiaInput.value = familiaDecodificada;
+                familiaInput.value = nombreInvitado;
                 familiaInput.style.background = 'rgba(232, 197, 176, 0.3)';
                 familiaInput.style.borderColor = '#d4a88c';
             }
@@ -865,10 +891,15 @@
             // Personalizar sección de padres
             const padresTexto = document.querySelector('.section-love .text-over-image');
             if (padresTexto && padresTexto.textContent.includes('Desean compartir')) {
-                padresTexto.innerHTML = 'Desean compartir este momento tan importante<br>con la <strong>Familia ' + familiaDecodificada + '</strong><br>y todas las personas que más queremos.';
+                if (tipoInvitado === 'Familia') {
+                    padresTexto.innerHTML = 'Desean compartir este momento tan importante<br>con la <strong>Familia ' + nombreInvitado + '</strong><br>y todas las personas que más queremos.';
+                } else if (tipoInvitado === 'Amigo') {
+                    padresTexto.innerHTML = 'Desean compartir este momento tan importante<br>con nuestro <strong>Amigo ' + nombreInvitado + '</strong><br>y todas las personas que más queremos.';
+                } else if (tipoInvitado === 'Amiga') {
+                    padresTexto.innerHTML = 'Desean compartir este momento tan importante<br>con nuestra <strong>Amiga ' + nombreInvitado + '</strong><br>y todas las personas que más queremos.';
+                }
             }
         }
-
         const confirmForm=document.getElementById('confirmForm'),formContainer=document.getElementById('formContainer'),confirmationResult=document.getElementById('confirmationResult'),TU_NUMERO_WHATSAPP="5638182240";
         confirmForm.addEventListener('submit',function(e){e.preventDefault();
             const familia=document.getElementById('familiaInput').value.trim(),cantidad=document.getElementById('cantidadSelect').value,asistencia=document.getElementById('asistenciaSelect').value;
