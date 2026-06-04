@@ -869,7 +869,7 @@
         document.body.addEventListener('click',function initAudio(){if(!isPlaying){bgMusic.play().then(()=>{isPlaying=true;musicToggle.classList.remove('muted');}).catch(()=>{});}},{once:true});
         musicToggle.addEventListener('click',(e)=>{e.stopPropagation();if(isPlaying){bgMusic.pause();isPlaying=false;musicToggle.classList.add('muted');}else{bgMusic.play().then(()=>{isPlaying=true;musicToggle.classList.remove('muted');}).catch(()=>{});}});
 
-        const targetDate=new Date("August 01, 2026 18:00:00").getTime();
+        const targetDate=new Date("August 1, 2026 18:00:00").getTime();
         function updateCountdown(){const n=new Date().getTime(),d=targetDate-n;if(d<0){document.getElementById('countdownContainer').innerHTML="<p style='font-size:2rem;color:#fff;'>¡Hoy es el gran día!</p>";return;}document.getElementById('days').textContent=Math.floor(d/(1000*60*60*24)).toString().padStart(2,'0');document.getElementById('hours').textContent=Math.floor((d%(1000*60*60*24))/(1000*60*60)).toString().padStart(2,'0');document.getElementById('minutes').textContent=Math.floor((d%(1000*60*60))/(1000*60)).toString().padStart(2,'0');document.getElementById('seconds').textContent=Math.floor((d%(1000*60))/1000).toString().padStart(2,'0');}
         setInterval(updateCountdown,1000);updateCountdown();
 
